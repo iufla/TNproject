@@ -76,6 +76,7 @@ matlabbatch{6}.spm.spatial.smooth.data = cellstr(spm_file(f,'prefix','w'));
 matlabbatch{6}.spm.spatial.smooth.fwhm = [6 6 6];
 
 spm_jobman('run',matlabbatch);
+% spm_jobman('interactive',matlabbatch);  % run spm interactively (batch editor)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GLM SPECIFICATION, ESTIMATION, INFERENCE, RESULTS
@@ -92,13 +93,16 @@ matlabbatch{1}.cfg_basicio.file_dir.dir_ops.cfg_mkdir.name = 'GLM';
 
 % Model Specification
 %--------------------------------------------------------------------------
+% TODOs: 
+% - check which parameter units SPM needs! (comments on the right are referring to dataset)
+% - find out how slice timing information (in anat .json file) can be input
 matlabbatch{2}.spm.stats.fmri_spec.dir = cellstr(fullfile(data_path,'GLM'));
 matlabbatch{2}.spm.stats.fmri_spec.timing.units = 'scans';
-matlabbatch{2}.spm.stats.fmri_spec.timing.RT = 1.656;
+matlabbatch{2}.spm.stats.fmri_spec.timing.RT = 1.656;           % RT = response time (?) = time from stimulus onset until reaction, probably in seconds
 matlabbatch{2}.spm.stats.fmri_spec.sess.scans = cellstr(f);
 matlabbatch{2}.spm.stats.fmri_spec.sess.cond.name = 'active';
-matlabbatch{2}.spm.stats.fmri_spec.sess.cond.onset = 0:12:00;
-matlabbatch{2}.spm.stats.fmri_spec.sess.cond.duration = 22;
+matlabbatch{2}.spm.stats.fmri_spec.sess.cond.onset = 12;        % given in seconds
+matlabbatch{2}.spm.stats.fmri_spec.sess.cond.duration = 22;     % given in seconds
 
 % Model Estimation
 %--------------------------------------------------------------------------
