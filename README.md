@@ -1,2 +1,2 @@
 # TNproject
-Alex, Stefan and Nina's TN project.
+Alex, Stephan and Nina's TN project.
