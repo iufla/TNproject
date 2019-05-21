@@ -12,6 +12,7 @@
 % Directory containing the Auditory data
 %--------------------------------------------------------------------------
 data_path = '/mypath/';
+% data_path = '/home/nina/Downloads/TNU/Project/study_autism/example/';
 
 % Initialise SPM
 %--------------------------------------------------------------------------
@@ -39,8 +40,10 @@ spm_jobman('initcfg');
 % SPATIAL PREPROCESSING
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-f = spm_select('FPList', fullfile(data_path,''), 'func.*\.nii$');
-a = spm_select('FPList', fullfile(data_path,''), 'anat.*\.nii$');
+f = spm_select('FPList', fullfile(data_path,''), '^sub.*func.*\.nii$');
+a = spm_select('FPList', fullfile(data_path,''), '^sub.*anat.*\.nii$');
+% f = spm_select('FPList', fullfile(data_path,''), 'func.*\.nii$');
+% a = spm_select('FPList', fullfile(data_path,''), 'anat.*\.nii$');
 
 clear matlabbatch
 
@@ -75,8 +78,8 @@ matlabbatch{5}.spm.spatial.normalise.write.woptions.vox  = [1 1 3];
 matlabbatch{6}.spm.spatial.smooth.data = cellstr(spm_file(f,'prefix','w'));
 matlabbatch{6}.spm.spatial.smooth.fwhm = [6 6 6];
 
-spm_jobman('run',matlabbatch);
-% spm_jobman('interactive',matlabbatch);  % run spm interactively (batch editor)
+% spm_jobman('run',matlabbatch);
+spm_jobman('interactive',matlabbatch);  % run spm interactively (batch editor)
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % GLM SPECIFICATION, ESTIMATION, INFERENCE, RESULTS
@@ -98,7 +101,8 @@ matlabbatch{1}.cfg_basicio.file_dir.dir_ops.cfg_mkdir.name = 'GLM';
 % - find out how slice timing information (in anat .json file) can be input
 matlabbatch{2}.spm.stats.fmri_spec.dir = cellstr(fullfile(data_path,'GLM'));
 matlabbatch{2}.spm.stats.fmri_spec.timing.units = 'scans';
-matlabbatch{2}.spm.stats.fmri_spec.timing.RT = 1.656;           % RT = response time (?) = time from stimulus onset until reaction, probably in seconds
+matlabbatch{2}.spm.stats.fmri_spec.timing.RT = 2;           % RT = repetition time
+% matlabbatch{2}.spm.stats.fmri_spec.timing.RT = 1.656;           % RT = response time (?) = time from stimulus onset until reaction, probably in seconds
 matlabbatch{2}.spm.stats.fmri_spec.sess.scans = cellstr(f);
 matlabbatch{2}.spm.stats.fmri_spec.sess.cond.name = 'active';
 matlabbatch{2}.spm.stats.fmri_spec.sess.cond.onset = 12;        % given in seconds
@@ -134,4 +138,5 @@ matlabbatch{6}.spm.util.render.display.conspec.threshdesc = 'FWE';
 matlabbatch{6}.spm.util.render.display.conspec.thresh = 0.05;
 matlabbatch{6}.spm.util.render.display.conspec.extent = 0;
 
-spm_jobman('run',matlabbatch);
+% spm_jobman('run',matlabbatch);
+spm_jobman('interactive',matlabbatch);
