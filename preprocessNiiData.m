@@ -6,9 +6,25 @@
 % http://www.fil.ion.ucl.ac.uk/spm/doc/manual.pdf#Chap:data:auditory
 % Copyright (C) 2014 Wellcome Trust Centre for Neuroimaging, Guillaume Flandin
 %
-function preprocessNiiData(data_path)
+
+%preprocessNIIData('TNProject/data/sub-03-test')
+
+pathBase = 'TNProject/data/';
+dirs = dir([pathBase,'sub*']);
+
+for f=1:numel(dirs)
+    preprocessNiiData(fullfile(pathBase,dirs(f).name))
+end
+
+
+function preprocessNIIData(data_path)
     savePath = fullfile(data_path,'preprocessed');
+    savePathFunc = fullfile(savePath, 'func');
+    savePathAnat = fullfile(savePath, 'anat');
     mkdir(savePath);
+    mkdir(savePathFunc);
+    mkdir(savePathAnat);
+    
     existingFiles = [dir(fullfile(data_path,'anat'))',dir(fullfile(data_path,'func'))'];
 
     % Initialise SPM
@@ -59,13 +75,19 @@ function preprocessNiiData(data_path)
     
     % Run all the configured steps
     spm_jobman('run',matlabbatch);
-%     spm_jobman('interactive',matlabbatch);  % run spm interactively (batch editor)
 
     % move preprocessed files to separate folder
-    currentlyExistingFiles = [dir(fullfile(data_path,'anat'))',dir(fullfile(data_path,'func'))'];
-    for n=1:numel(currentlyExistingFiles)
-        if ~contains([existingFiles.name],currentlyExistingFiles(n).name)
-            movefile(fullfile(currentlyExistingFiles(n).folder,currentlyExistingFiles(n).name),savePath);
+    currentlyExistingFilesAnat = dir(fullfile(data_path,'anat'))';
+    for n=1:numel(currentlyExistingFilesAnat)
+        if ~contains([existingFiles.name],currentlyExistingFilesAnat(n).name)
+            movefile(fullfile(currentlyExistingFilesAnat(n).folder,currentlyExistingFilesAnat(n).name),savePathAnat);
         end
     end
+    currentlyExistingFilesFunc = dir(fullfile(data_path,'func'))';
+   for n=1:numel(currentlyExistingFilesFunc)
+        if ~contains([existingFiles.name],currentlyExistingFilesFunc(n).name)
+            movefile(fullfile(currentlyExistingFilesFunc(n).folder,currentlyExistingFilesFunc(n).name),savePathFunc);
+        end
+    end
+
 end

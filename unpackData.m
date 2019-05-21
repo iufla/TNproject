@@ -1,4 +1,4 @@
-pathBase = 'TNProject/';
+pathBase = 'TNProject/data/';
 
 dFunc = dir([pathBase,'sub*/func/*.nii.gz']);
 dAnat = dir([pathBase,'sub*/anat/*.nii.gz']);
