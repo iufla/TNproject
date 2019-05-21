@@ -1,6 +1,7 @@
 % read in a task description and format it into a struct with fieldnames =
 % column names of original file
 t = textread('sub-03_func_sub-03_task-dis_run-01_events.tsv','%s','delimiter','\n');
+header = strsplit(t{1});
 specs = struct();
 for line=2:numel(t)
     data = strsplit(t{line});
