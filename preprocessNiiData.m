@@ -13,7 +13,7 @@ pathBase = 'TNProject/data/';
 dirs = dir([pathBase,'sub*']);
 
 for f=1:numel(dirs)
-    preprocessNiiData(fullfile(pathBase,dirs(f).name))
+    preprocessNIIData(fullfile(pathBase,dirs(f).name))
 end
 
 
