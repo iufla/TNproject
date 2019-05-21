@@ -1,10 +1,12 @@
-pathBase = './';
+pathBase = 'TNProject/';
 
 dFunc = dir([pathBase,'sub*/func/*.nii.gz']);
 dAnat = dir([pathBase,'sub*/anat/*.nii.gz']);
 
-d = [dFunc,dAnat];
+d = [dFunc',dAnat'];
 
 for f=1:numel(d)
-    gunzip(fullfile(d(f).folder,d(f).name));
+    file = fullfile(d(f).folder,d(f).name);
+    gunzip(file);
+    delete(file);
 end
