@@ -1,9 +1,16 @@
-% List of open inputs
-nrun = X; % enter the number of runs here
-jobfile = {'/home/nina/Downloads/TNU/Project/study_autism/example/GLM/spm_glm_batch_job.m'};
-jobs = repmat(jobfile, 1, nrun);
-inputs = cell(0, nrun);
-for crun = 1:nrun
+spm('defaults','FMRI')
+
+pathBase = what('TNProject');
+pathBase = pathBase.path;
+pathBase = fullfile(pathBase, 'data');
+dirs = dir(fullfile(pathBase,'sub*'));
+
+for f=1:numel(dirs)
+    path = fullfile(pathBase,dirs(f).name);
+    
+    filenames = dir(fullfile(path, 'func', '*dis*.nii'));
+    
+    for i=1:numel(filenames)
+        spm_glm_batch_job(path, filenames(i).name);
+    end
 end
-spm('defaults', 'FMRI');
-spm_jobman('run', jobs, inputs{:});

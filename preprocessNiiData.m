@@ -27,7 +27,7 @@ function preprocessNiiData(data_path)
     % SPATIAL PREPROCESSING
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     
-    f = spm_select('FPList', fullfile(data_path,'func'), '^sub.*\.nii$');
+    f = spm_select('FPList', fullfile(data_path,'func'), '^sub.*(dis).*\.nii');
     a = spm_select('FPList', fullfile(data_path,'anat'), '^sub.*\.nii$');
 
     clear matlabbatch
