@@ -7,17 +7,7 @@
 % Copyright (C) 2014 Wellcome Trust Centre for Neuroimaging, Guillaume Flandin
 %
 
-%preprocessNIIData('TNProject/data/sub-03-test')
-
-pathBase = 'TNProject/data/';
-dirs = dir([pathBase,'sub*']);
-
-for f=1:numel(dirs)
-    preprocessNIIData(fullfile(pathBase,dirs(f).name))
-end
-
-
-function preprocessNIIData(data_path)
+function preprocessNiiData(data_path)
     savePath = fullfile(data_path,'preprocessed');
     savePathFunc = fullfile(savePath, 'func');
     savePathAnat = fullfile(savePath, 'anat');
