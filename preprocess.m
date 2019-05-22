@@ -1,4 +1,4 @@
-%preprocesses all the data in the sub-xx folders in the given directory
+% preprocesses all the data in the sub-xx folders in the given directory
 % first it extracts all the .gz-files, than it continues with preprocessing the Nii-Files,
 % after that it adjusts the
 % textfiles and then it extracts the task specifications
@@ -7,8 +7,8 @@ pathBase = what('TNProject');
 pathBase = pathBase.path;
 pathBase = fullfile(pathBase, 'data');
 
-dFunc = dir([pathBase,'sub*/func/*.nii.gz']);
-dAnat = dir([pathBase,'sub*/anat/*.nii.gz']);
+dFunc = dir(fullfile(pathBase,'sub*/func/*.nii.gz'));
+dAnat = dir(fullfile(pathBase,'sub*/anat/*.nii.gz'));
 
 d = [dFunc',dAnat'];
 
@@ -20,7 +20,7 @@ end
 
 %preprocesses the Nii data
 
-dirs = dir([pathBase,'sub*']);
+dirs = dir(fullfile(pathBase,'sub*'));
 
 for f=1:numel(dirs)
     preprocessNiiData(fullfile(pathBase,dirs(f).name))
@@ -48,7 +48,7 @@ end
 
 % pro preprocessed folder 1 struct mit diesen vier arrays
 
-dirs = dir([pathBase,'sub*/func/*task-dis_run*.tsv']);
+dirs = dir(fullfile(pathBase,'sub*','func','*task-dis_run*.tsv'));
 
 for f=1:numel(dirs)
     filename = dirs(f).name;
