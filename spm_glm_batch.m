@@ -1,6 +1,6 @@
 spm('defaults','FMRI')
 
-pathBase = what('TNProject');
+pathBase = what('TNproject');
 pathBase = pathBase.path;
 pathBase = fullfile(pathBase, 'data');
 dirs = dir(fullfile(pathBase,'sub*'));

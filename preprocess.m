@@ -3,7 +3,7 @@
 % after that it adjusts the
 % textfiles and then it extracts the task specifications
 
-pathBase = what('TNProject');
+pathBase = what('TNproject');
 pathBase = pathBase.path;
 pathBase = fullfile(pathBase, 'data');
 
