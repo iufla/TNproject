@@ -18,6 +18,8 @@ for f=1:numel(d)
     delete(file);
 end
 
+sprintf('==== unpacked all data ====')
+
 %preprocesses the Nii data
 
 dirs = dir(fullfile(pathBase,'sub*'));
@@ -25,6 +27,8 @@ dirs = dir(fullfile(pathBase,'sub*'));
 for f=1:numel(dirs)
     preprocessNiiData(fullfile(pathBase,dirs(f).name))
 end
+
+sprintf('==== processed all nii-data ====')
 
 %makes all the.txt-files right
 
@@ -46,7 +50,9 @@ for f=1:numel(dirs)
     end
 end
 
-% pro preprocessed folder 1 struct mit diesen vier arrays
+sprintf('==== processed all textfiles ====')
+
+% preprocess taskSpecs, generate matlab structs from .tsv-files
 
 dirs = dir(fullfile(pathBase,'sub*','func','*task-dis_run*.tsv'));
 
@@ -59,3 +65,6 @@ for f=1:numel(dirs)
     structName = strrep(filename,'tsv','mat');
     save(fullfile(preprocessedFolder,structName),'struct');
 end
+
+sprintf('==== generate structs from tsv ====')
+sprintf('======== Finished! ========')
