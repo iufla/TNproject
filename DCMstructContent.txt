@@ -1,0 +1,38 @@
+DCM struct
+
+DCM.Y.
+        y       time series 166x4
+        name    region names (1x4 cell)
+        dt      2 (seconds)
+        X0      states 166x6
+        Q       ?? (cell, large sparse)
+        
+DCM.a           fixed connections 4x4 double
+DCM.b           modulatory inputs 4x4x2 -> why 2D? (because intentional and accidential)
+DCM.c           4x2 driving inputs (intional and accidential)
+DCM.d           empty! -> ??
+
+DCM.U           input
+        name    accidential, intentional
+        dt      0.0625 ??
+        u       ...x2 sparse double (stores only nonzero entries (which are 1))
+        idx     2x2 ??
+        
+DCM.xY          1x4 struct
+        xyz     coordinates - different from specified -> centred around peak?
+        XYZmm   why different sized 3x... doubles for all regions?
+        others  ??
+        
+DCM.v           # slices (166)
+DCM.n           # regions (4)
+
+DCM.TE          echo time (why 0.04? -> how to set?)
+DCM.delays      how to set?
+DCM.options     how to set?
+
+
+
+To estimate:
+> spm_dcm_estimate(’DCM_mod_bwd’);
+
+        
