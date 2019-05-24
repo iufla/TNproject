@@ -4,35 +4,48 @@ DCM.Y.
         y       time series 166x4
         name    region names (1x4 cell)
         dt      2 (seconds)
-        X0      states 166x6
-        Q       ?? (cell, large sparse)
+        X0      states 166x6 (sin and cos transforms -> as we had HPF before, to account for drifts etc.)
+        Q       covariance matrices (covariance modelled as param which estimated * this matrix) (cell, large sparse)
         
 DCM.a           fixed connections 4x4 double
 DCM.b           modulatory inputs 4x4x2 -> why 2D? (because intentional and accidential)
-DCM.c           4x2 driving inputs (intional and accidential)
-DCM.d           empty! -> ??
+DCM.c           4x2 driving inputs (intentional and accidential)
+DCM.d           empty! -> for non-linear DCMs
 
 DCM.U           input
         name    accidential, intentional
-        dt      0.0625 ??
-        u       ...x2 sparse double (stores only nonzero entries (which are 1))
+        dt      0.0625 microtime resolution (subsampling of 2s in 32 steps)
+        u       ...x2 sparse double input (stores only nonzero entries (which are 1))
         idx     2x2 ??
         
 DCM.xY          1x4 struct
-        xyz     coordinates - different from specified -> centred around peak?
-        XYZmm   why different sized 3x... doubles for all regions?
+        xyz     coordinates - different from specified -> only wants to look at coordinates where something significant -> shift until there)
+        XYZmm   why different sized 3x... doubles for all regions? (probably because cut for some images if at border or if our centre at midpoint of voxel or not -> different # voxels included)
         others  ??
         
 DCM.v           # slices (166)
 DCM.n           # regions (4)
 
-DCM.TE          echo time (why 0.04? -> how to set?)
-DCM.delays      how to set?
+DCM.TE          echo time (why 0.04? -> how to set?) - probably specified in study data but should not matter much
+DCM.delays      if slice timing correction done -> can set all to 0, else takes into account when each region has been recorded (as our regions around in same height and about in the middel (where 0 is), doesn't matter, 0 ok)
 DCM.options     how to set?
+
+
+.y              resulting series
+.R              what remains as noise
+look at var(y)/var(y+R)
+free energy F
+.EP posterior params
 
 
 
 To estimate:
 > spm_dcm_estimate(’DCM_mod_bwd’);
+
+to concatenate X0:
+combine blocks (put them "on diagonal")
+
+Q are just diagonal matrices of '1' -> assumes Gaussian noise for each region
+e.g. again 4 Qs, prolong each by factor 6 (assumes that same noise everywhere) or 24 such matrices, each size 24*166 -> estimate 24 noise params, concatenate them
 
         

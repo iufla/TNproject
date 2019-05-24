@@ -1,0 +1,27 @@
+GLM: do 1 GLM per subject -> sess = struct with several entries, one per run (but 1 GLM over all 6 runs)
+we can look at same contrast as they computed in the paper -> compare to their contrasts! (maybe we have to decrease significance levels)
+
+T contrasts good to bring them to next level (between intentional and unintentional (1 -1)
+and T contrast (average intentional and unintenional (1 1) vs rest)
+-> take them to 2nd level -> same results as before
+batch editor: statistical test batch editor con-image e.g. t-test or f-test on contrasts that we received
+
+concatenate extracted time series of all runs per subject (although übergänge not really nice) - else only 1 run (maybe first like this) & also concatenate inputs
+
+which session says which to export
+
+reference images to compare to: spm12/canonical template
+
+we could take parameter estimate average over all runs (if 1 DCM per run) -> model comparison
+more data for fewer parameters if everything concatenated (same A, B etc for sure)
+
+
+estimate DCM params for each subject
+BMS: define 2 groups for group model selection (BMS in each group, see what wins)
+estimate params within groups and compare (or MAP estimates for subjects, look with T-stats if different for both groups)
+
+
+Echo time: 40ms (paper)
+
+
+

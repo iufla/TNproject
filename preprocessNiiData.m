@@ -6,7 +6,6 @@
 % http://www.fil.ion.ucl.ac.uk/spm/doc/manual.pdf#Chap:data:auditory
 % Copyright (C) 2014 Wellcome Trust Centre for Neuroimaging, Guillaume Flandin
 %
-
 function preprocessNiiData(data_path)
     savePath = fullfile(data_path,'preprocessed');
     savePathFunc = fullfile(savePath, 'func');
@@ -21,7 +20,6 @@ function preprocessNiiData(data_path)
     %--------------------------------------------------------------------------
     spm('Defaults','fMRI');
     spm_jobman('initcfg');
-    % spm_get_defaults('cmdline',true);
 
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % SPATIAL PREPROCESSING
@@ -66,7 +64,7 @@ function preprocessNiiData(data_path)
     % Run all the configured steps
     spm_jobman('run',matlabbatch);
 
-    % move preprocessed files to separate folder
+    % Move preprocessed files to separate folder
     currentlyExistingFilesAnat = dir(fullfile(data_path,'anat'))';
     for n=1:numel(currentlyExistingFilesAnat)
         if ~contains([existingFiles.name],currentlyExistingFilesAnat(n).name)

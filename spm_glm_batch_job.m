@@ -50,15 +50,22 @@ function spm_glm_batch_job(subjectPath, fileName)
     matlabbatch{3}.spm.stats.fmri_est.write_residuals = 0;
     matlabbatch{3}.spm.stats.fmri_est.method.Classical = 1;
     matlabbatch{4}.spm.stats.con.spmmat = {fullfile(glmPath, fileNameBase, 'SPM.mat')};
-    matlabbatch{4}.spm.stats.con.consess{1}.tcon.name = '? > ?';
-    matlabbatch{4}.spm.stats.con.consess{1}.tcon.weights = [1 0];
+    matlabbatch{4}.spm.stats.con.consess{1}.tcon.name = 'intentional > accidental'; % determine if larger activity if cause of harm intentional than accidental
+    matlabbatch{4}.spm.stats.con.consess{1}.tcon.weights = [1 -1];
     matlabbatch{4}.spm.stats.con.consess{1}.tcon.sessrep = 'none';
-    matlabbatch{4}.spm.stats.con.consess{2}.tcon.name = '? > ?';
-    matlabbatch{4}.spm.stats.con.consess{2}.tcon.weights = [-1 0];
+    matlabbatch{4}.spm.stats.con.consess{1}.tcon.name = 'intentional < accidental'; % determine if smaller activity if cause of harm intentional than accidental
+    matlabbatch{4}.spm.stats.con.consess{1}.tcon.weights = [-1 1];
+    matlabbatch{4}.spm.stats.con.consess{1}.tcon.sessrep = 'none';
+    matlabbatch{4}.spm.stats.con.consess{2}.tcon.name = 'reaction to intentional and accidental cause for harm revelation > other';
+    matlabbatch{4}.spm.stats.con.consess{2}.tcon.weights = [1 1];
     matlabbatch{4}.spm.stats.con.consess{2}.tcon.sessrep = 'none';
-    matlabbatch{4}.spm.stats.con.consess{3}.fcon.name = 'Effect of design';
+    matlabbatch{4}.spm.stats.con.consess{3}.fcon.name = 'Effect of design';         % determine if any effect by intentional and/or accidental 
     matlabbatch{4}.spm.stats.con.consess{3}.fcon.weights = [1 0
                                                             0 1];
+    matlabbatch{4}.spm.stats.con.consess{3}.fcon.sessrep = 'none';
+    matlabbatch{4}.spm.stats.con.consess{3}.fcon.name = 'Effect of design more similar to t contrast';         % determine if any effect by intentional and/or accidental 
+    matlabbatch{4}.spm.stats.con.consess{3}.fcon.weights = [1 -1
+                                                            -1 1];
     matlabbatch{4}.spm.stats.con.consess{3}.fcon.sessrep = 'none';
     matlabbatch{4}.spm.stats.con.delete = 0;
     matlabbatch{5}.spm.stats.results.spmmat = {fullfile(glmPath, fileNameBase, 'SPM.mat')};
