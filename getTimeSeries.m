@@ -1,4 +1,4 @@
-function getTimeSeries(path,regions)
+function getTimeSeries(pathBase,path,regions)
     for n=1:numel(regions)
         clear matlabbatch
         matlabbatch{1}.spm.util.voi.spmmat = {fullfile(path,'SPM.mat')};
@@ -10,6 +10,12 @@ function getTimeSeries(path,regions)
         matlabbatch{1}.spm.util.voi.roi{1}.sphere.radius = regions(n).size;
         matlabbatch{1}.spm.util.voi.roi{1}.sphere.move.fixed = 1;        
         matlabbatch{1}.spm.util.voi.expression = 'i1';
-        spm_jobman('run', matlabbatch);
+        try
+            spm_jobman('run', matlabbatch);
+        catch
+            logFile = fopen(fullfile(pathBase,'_log.txt'),'a');
+            fprintf(logFile,'%s\n',['Time series extraction failed for region ',regions(n).name,' in ',strrep(path,pathBase,''),' .']);
+            fclose(logFile);
+        end
     end
 end

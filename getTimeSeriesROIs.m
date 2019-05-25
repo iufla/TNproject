@@ -33,6 +33,6 @@ for f=1:numel(dirs)
     for i=1:numel(filenames)
         fileNameBase = strrep(filenames(i).name, '.nii', '');
         glmPathTask = fullfile(glmPath, fileNameBase);
-        getTimeSeries(glmPathTask,regions);
+        getTimeSeries(pathBase,glmPathTask,regions);
     end
 end
