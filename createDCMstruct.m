@@ -73,7 +73,7 @@ function createDCMstruct(subjectPath,runName)
     
     % Connectivity matrices specifications
     %--------------------------------------------------------------------------
-    nDCMs = 1;
+    nDCMs = 0;
     nInputs = numel(DCM.U.name);
     
     MPFCidx = find(contains({vois.name},'MPFC'));
@@ -81,45 +81,66 @@ function createDCMstruct(subjectPath,runName)
     LTPJidx = find(contains({vois.name},'LTPJ'));
     RTPJidx = find(contains({vois.name},'RTPJ'));
     
-    % Fully connected DCM without self-inhibitory connections with MPFC and PREC as driving input regions
-    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));
-    for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));
-    end
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).c(MPFCidx,:) = ones(1,nInputs);
-    connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)  
-    
-    % Analog to example above, define more DCMs!
-    % Note: need to verify which matrix entry is which direction! 
-    % (from row region to column region?)
-    
-    % Fully connected DCM with MPFC and PREC as driving input regions
+    for MPFCIntentional = 0:1 % nicht sicher bei den vier Namen!!
+        for MPFCAccidential = 0:1
+            for PRECIntentional= 0:1
+                for PRECAccidential = 0:1
+                    nDCMs = nDCMs + 1;
+                    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+                    for n=1:nInputs
+                        connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n);
+                    end
+                    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+                                        
+                    connectivityMatrices(nDCMs).c(MPFCidx,1) = MPFCIntentional;
+                    connectivityMatrices(nDCMs).c(MPFCidx,2) = MPFCAccidential;
+                    connectivityMatrices(nDCMs).c(PRECidx,1) = PRECIntentional;
+                    connectivityMatrices(nDCMs).c(PRECidx,2) = PRECAccidential;
 
-    nDCMs = nDCMs + 1;
-    
-        connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-    for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n);
+                    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0); 
+            end
+        end
     end
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).c(MPFCidx,:) = ones(1,nInputs);
-    connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0); 
     
-    % Fully connected DCM without modulation of self-inhibitory connections with MPFC and PREC as driving input regions
-
-    nDCMs = nDCMs + 1;
+       
     
-        connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-    for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));
-    end
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).c(MPFCidx,:) = ones(1,nInputs);
-    connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0); 
+%     % Fully connected DCM without self-inhibitory connections with MPFC and PREC as driving input regions
+%     connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));
+%     for n=1:nInputs
+%         connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));
+%     end
+%     connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+%     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)  
+%     
+%     % Analog to example above, define more DCMs!
+%     % Note: need to verify which matrix entry is which direction! 
+%     % (from row region to column region?)
+%     
+%     % Fully connected DCM with MPFC and PREC as driving input regions
+% 
+%     nDCMs = nDCMs + 1;
+%     
+%         connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+%     for n=1:nInputs
+%         connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n);
+%     end
+%     connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+%     connectivityMatrices(nDCMs).c(MPFCidx,:) = ones(1,nInputs);
+%     connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
+%     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0); 
+%     
+%     % Fully connected DCM without modulation of self-inhibitory connections with MPFC and PREC as driving input regions
+% 
+%     nDCMs = nDCMs + 1;
+%     
+%         connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+%     for n=1:nInputs
+%         connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));
+%     end
+%     connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+%     connectivityMatrices(nDCMs).c(MPFCidx,:) = ones(1,nInputs);
+%     connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
+%     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0); 
     
     
     
