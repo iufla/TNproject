@@ -25,7 +25,14 @@ sprintf('==== unpacked all data ====')
 dirs = dir(fullfile(pathBase,'sub*'));
 
 for f=1:numel(dirs)
-    preprocessNiiData(fullfile(pathBase,dirs(f).name))
+    % if the process got interrupted, we can begin with the given specs
+    % number
+    beginning = 100; %0, if not needed
+    if str2num(strrep(dirs(f).name, 'sub-','')) < beginning
+        sprintf("skipped %s", dirs(f).name)
+    else
+        preprocessNiiData(fullfile(pathBase,dirs(f).name))
+    end
 end
 
 sprintf('==== processed all nii-data ====')
@@ -36,12 +43,17 @@ for f=1:numel(dirs)
     subject = dirs(f).name;
     preprocessedFunc = fullfile(pathBase, subject, 'preprocessed', 'func');
     txtDir = dir(fullfile(preprocessedFunc, 'rp*.txt'));
+    if size(txtDir,1) == 0
+        warning('skipped %s',subject)
+        continue
+    end
     M = dlmread(fullfile(txtDir.folder, txtDir.name));
 
     si = size(M,1);
     batchSize = 166;
     if mod(si, batchSize) ~= 0
-        warning('%s', subject)
+        warning('wrong number of lines in txt-file %s', subject)
+        continue
     end
     for i = 1:6
         filename = [subject, '_task-dis_run-',num2str(i, '%02d'),'_bold', '.txt'];
