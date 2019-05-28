@@ -14,7 +14,10 @@ for i = 1:numel(subsDir)
     mkdir(condensedDataPath, folderName);
     destinationDir = fullfile(condensedDataPath, folderName);
     
-    copyfile(fullfile(folderDir, 'GLM'), fullfile(destinationDir, 'GLM'));
+    glmFolderSource = fullfile(folderDir, 'GLM');
+    if exist(glmFolderSource, 'dir')
+        copyfile(glmFolderSource, fullfile(destinationDir, 'GLM'));
+    end
     
     dcmFolderSource = fullfile(folderDir, 'DCM');
     if exist(dcmFolderSource, 'dir')
