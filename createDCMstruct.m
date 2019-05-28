@@ -93,6 +93,8 @@ function createDCMstruct(subjectPath,runName)
     if RTPJidx > MPFCidx
         RTPJidx = RTPJidx - 1;
     end
+    harmInptIdx = find(contains(DCM.U.name,'harm'));
+    accidentalInptIdx = find(contains(DCM.U.name,'accidental'));
     
 %     for MPFCIntentional = 0:1 % nicht sicher bei den vier Namen!!
 %         for MPFCAccidential = 0:1
@@ -115,82 +117,188 @@ function createDCMstruct(subjectPath,runName)
 %         end
 %     end
 %     
-    % self-modulatory inputs, no driving inputs
-    nDCMs = nDCMs + 1;
-    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-    for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
-    end
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
-    
-    % towards RTPJ modulatory inputs, no driving inputs
+
+    % 1. self-modulatory input at RTPJ, driving input towards PC
     nDCMs = nDCMs + 1;
     connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
     for n=1:nInputs
         connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
-        connectivityMatrices(nDCMs).b(RTPJidx,:,n) = ones(1, DCM.n);
     end
+    connectivityMatrices(nDCMs).b(RTPJidx,RTPJidx,n) = 1;
     connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
-    
-    % self-modulatory inputs, towards RTPJ modulatory inputs, no driving inputs
-    nDCMs = nDCMs + 1;
-    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-    for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
-        connectivityMatrices(nDCMs).b(RTPJidx,:,n) = ones(1, DCM.n);
-    end
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(PRECidx,harmInptIdx) = 1;
     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
     
-    % self-modulatory input u1, towards RTPJ modulatory input u1, no driving inputs
-    nDCMs = nDCMs + 1;
-    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-    connectivityMatrices(nDCMs).b(:,:,1) = diag(ones(DCM.n,1));
-    connectivityMatrices(nDCMs).b(RTPJidx,:,1) = ones(1, DCM.n);
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
-    
-    % self-modulatory input u2, towards RTPJ modulatory input u2, no driving inputs
-    nDCMs = nDCMs + 1;
-    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-    connectivityMatrices(nDCMs).b(:,:,2) = diag(ones(DCM.n,1));
-    connectivityMatrices(nDCMs).b(RTPJidx,:,2) = ones(1, DCM.n);
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
-    
-    % self-modulatory inputs, towards RTPJ modulatory input u2, no driving inputs
+    % 2. modulatory inputs towards RTPJ, driving input towards PC
     nDCMs = nDCMs + 1;
     connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
     for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
     end
-    connectivityMatrices(nDCMs).b(RTPJidx,:,2) = ones(1, DCM.n);
+    connectivityMatrices(nDCMs).b(RTPJidx,[PRECidx,LTPJidx],n) = 1;
     connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
-    
-    % self-modulatory inputs, no driving inputs, driving inputs on PREC
-    nDCMs = nDCMs + 1;
-    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-    for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
-    end
-    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
+    connectivityMatrices(nDCMs).c(PRECidx,harmInptIdx) = 1;
     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
     
-    % self-modulatory inputs, towards RTPJ modulatory input u2, no driving inputs, driving inputs on PREC
+    % 3. modulatory inputs from PREC towards RTPJ, driving input towards PC
     nDCMs = nDCMs + 1;
     connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
     for n=1:nInputs
-        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
     end
-    connectivityMatrices(nDCMs).b(RTPJidx,:,2) = ones(1, DCM.n);
+    connectivityMatrices(nDCMs).b(RTPJidx,PRECidx,n) = 1;
     connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-    connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
+    connectivityMatrices(nDCMs).c(PRECidx,harmInptIdx) = 1;
     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
     
+    % 4. modulatory inputs from LTPJ towards RTPJ, driving input towards PC
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,LTPJidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(PRECidx,harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 5. modulatory inputs towards RTPJ, driving input towards PC, LTPJ, RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,[PRECidx,LTPJidx],n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(:,harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 6. modulatory inputs towards RTPJ, driving input towards PC, LTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,[PRECidx,LTPJidx],n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,LTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 7. self-modulatory input at RTPJ, driving input towards PC, LTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,RTPJidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,LTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 8. self-modulatory input at RTPJ, driving input towards PC,LTPJ,RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,RTPJidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(:,harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 9. modulatory inputs from PREC towards RTPJ, driving input towards
+    % PC,LTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,PRECidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,LTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 10. modulatory inputs from LTPJ towards RTPJ, driving input towards
+    % PC,LTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,LTPJidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,LTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 11. modulatory inputs from PREC towards RTPJ, driving input towards
+    % PC,LTPJ;RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,PRECidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(:,harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 12. modulatory inputs from LTPJ towards RTPJ, driving input towards
+    % PC,LTPJ,RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,LTPJidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(:,harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 13. modulatory inputs towards RTPJ, driving input towards PC, RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,[PRECidx,LTPJidx],n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,RTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 14. self-modulatory input at RTPJ, driving input towards PC, RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,RTPJidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,RTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 15. modulatory inputs from PREC towards RTPJ, driving input towards
+    % PC,RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,PRECidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,RTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    % 16. modulatory inputs from LTPJ towards RTPJ, driving input towards
+    % PC,RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,LTPJidx,n) = 1;
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,RTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
     
 %     % Fully connected DCM without self-inhibitory connections with MPFC and PREC as driving input regions
 %     connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));

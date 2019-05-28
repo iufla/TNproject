@@ -2,7 +2,7 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 pathBase = fullfile(pathBase, 'data');
 
-testMode = 1; % runs the DCM estimation only on one subject
+testMode = 0; % runs the DCM estimation only on one subject
 fullMode = 0; % runs the DCM estimation on all the tasks if 1, only on one if 0
 
 if testMode == 1 % run it just for one subjects and one task
