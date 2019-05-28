@@ -24,12 +24,17 @@ function specs_f = readTaskSpecs(filename)
     % (condition names ending with 'I' or 'A')
     intentionalIndices = [];
     accidentalIndices = [];
+    harmIndices = [];
+    harmLabels = {'A_PHA','B_PSA','F_PHI','G_PSI'};
     for n=1:numel(specs)
-       if strcmp(specs(n).condition(end),'I')
-           intentionalIndices = [intentionalIndices,n];
-       else
-           accidentalIndices = [accidentalIndices,n];
-       end
+        if any(contains(harmLabels,specs(n).condition))
+            if strcmp(specs(n).condition(end),'I')
+                intentionalIndices = [intentionalIndices,n];
+            else
+                accidentalIndices = [accidentalIndices,n];
+            end
+            harmIndices = [harmIndices,n];
+        end
 
     end
 
@@ -39,9 +44,11 @@ function specs_f = readTaskSpecs(filename)
     % scaled to the real time
     onsetsIntentional = [specs(intentionalIndices).onset] * 2 + offset;
     onsetsAccidental = [specs(accidentalIndices).onset] * 2 + offset;
+    onsetsHarm = [specs(harmIndices).onset] * 2 + offset;
 
     durationsIntentional = [specs(intentionalIndices).duration] * 2 - offset;
     durationsAccidental = [specs(accidentalIndices).duration] * 2 - offset;
+    durationsHarm = [specs(harmIndices).duration] * 2 - offset;
     
-    specs_f = struct('onsetsIntentional', onsetsIntentional, 'onsetsAccidental', onsetsAccidental, 'durationsIntentional', durationsIntentional, 'durationsAccidental', durationsAccidental);
+    specs_f = struct('onsetsHarm',onsetsHarm,'onsetsIntentional', onsetsIntentional, 'onsetsAccidental', onsetsAccidental, 'durationsHarm',durationsHarm,'durationsIntentional', durationsIntentional, 'durationsAccidental', durationsAccidental);
 end
