@@ -15,8 +15,8 @@ function runDCMOnSubject(subjectPath, runName)
     estimatedDCMs = designDCMs;
     for i = 1:numel(designDCMs)
         estimatedDCMs(i).DCM = spm_dcm_estimate(designDCMs(i).DCM);
-        temp = estimatedDCMs(i);
-        save(fullfile(dcmPath,['DCM_estimated_',num2str(i,'%02d'),'.mat']),'temp');
+        DCM = estimatedDCMs(i);
+        save(fullfile(dcmPath,['DCM_estimated_',num2str(i,'%02d'),'.mat']),'DCM');
     end
     
     
