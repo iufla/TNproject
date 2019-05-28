@@ -35,9 +35,13 @@ function createDCMstruct(subjectPath,runName)
     %--------------------------------------------------------------------------
     vois = dir(fullfile(subjectPath,'GLM',runName,'VOI*.mat'));
     
+    i = 0;
     for n=1:numel(vois)
-       xYStruct = load(fullfile(vois(n).folder,vois(n).name),'xY');
-       DCM.xY(n) = xYStruct.xY;
+        if isempty(strfind(vois(n).name, 'MPFC'))
+            i = i+1;
+            xYStruct = load(fullfile(vois(n).folder,vois(n).name),'xY');
+            DCM.xY(i) = xYStruct.xY;
+        end
     end
 
     DCM.n = length(DCM.xY);      % number of regions
@@ -80,29 +84,106 @@ function createDCMstruct(subjectPath,runName)
     PRECidx = find(contains({vois.name},'PREC'));
     LTPJidx = find(contains({vois.name},'LTPJ'));
     RTPJidx = find(contains({vois.name},'RTPJ'));
-    
-    for MPFCIntentional = 0:1 % nicht sicher bei den vier Namen!!
-        for MPFCAccidential = 0:1
-            for PRECIntentional= 0:1
-                for PRECAccidential = 0:1
-                    nDCMs = nDCMs + 1;
-                    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
-                    for n=1:nInputs
-                        connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n);
-                    end
-                    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
-                                        
-                    connectivityMatrices(nDCMs).c(MPFCidx,1) = MPFCIntentional;
-                    connectivityMatrices(nDCMs).c(MPFCidx,2) = MPFCAccidential;
-                    connectivityMatrices(nDCMs).c(PRECidx,1) = PRECIntentional;
-                    connectivityMatrices(nDCMs).c(PRECidx,2) = PRECAccidential;
-
-                    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0); 
-            end
-        end
+    if PRECidx > MPFCidx
+        PRECidx = PRECidx - 1;
+    end
+    if LTPJidx > MPFCidx
+        LTPJidx = LTPJidx - 1;
+    end
+    if RTPJidx > MPFCidx
+        RTPJidx = RTPJidx - 1;
     end
     
-       
+%     for MPFCIntentional = 0:1 % nicht sicher bei den vier Namen!!
+%         for MPFCAccidential = 0:1
+%             for PRECIntentional= 0:1
+%                 for PRECAccidential = 0:1
+%                     nDCMs = nDCMs + 1;
+%                     connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+%                     for n=1:nInputs
+%                         connectivityMatrices(nDCMs).b(:,:,n) = ones(DCM.n,DCM.n);
+%                     end
+%                     connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+%                                         
+%                     connectivityMatrices(nDCMs).c(MPFCidx,1) = MPFCIntentional;
+%                     connectivityMatrices(nDCMs).c(MPFCidx,2) = MPFCAccidential;
+%                     connectivityMatrices(nDCMs).c(PRECidx,1) = PRECIntentional;
+%                     connectivityMatrices(nDCMs).c(PRECidx,2) = PRECAccidential;
+% 
+%                     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0); 
+%             end
+%         end
+%     end
+%     
+
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
+    
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+        connectivityMatrices(nDCMs).b(RTPJidx,:,n) = ones(1, DCM.n);
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
+    
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
+        connectivityMatrices(nDCMs).b(RTPJidx,:,n) = ones(1, DCM.n);
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    connectivityMatrices(nDCMs).b(:,:,1) = diag(ones(DCM.n,1));
+    connectivityMatrices(nDCMs).b(RTPJidx,:,1) = ones(1, DCM.n);
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
+    
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    connectivityMatrices(nDCMs).b(:,:,2) = diag(ones(DCM.n,1));
+    connectivityMatrices(nDCMs).b(RTPJidx,:,2) = ones(1, DCM.n);
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
+    
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,:,2) = ones(1, DCM.n);
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM) 
+    
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = diag(ones(DCM.n,1));
+    end
+    connectivityMatrices(nDCMs).b(RTPJidx,:,2) = ones(1, DCM.n);
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(PRECidx,:) = ones(1,nInputs);
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
     
 %     % Fully connected DCM without self-inhibitory connections with MPFC and PREC as driving input regions
 %     connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n)-diag(ones(DCM.n,1));
