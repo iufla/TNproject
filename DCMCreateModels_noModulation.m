@@ -144,6 +144,6 @@ function DCMCreateModels_noModulation(subjectPath,runName)
         DCM.b = connectivityMatrices(n).b;
         DCM.c = connectivityMatrices(n).c;
         DCM.d = connectivityMatrices(n).d;
-        save(fullfile(subjectPath,'DCM', runName,['DCM_design_no_mod_',num2str(n),'%02d'),'.mat']),'DCM');
+        save(fullfile(subjectPath,'DCM', runName,['DCM_design_no_mod_',num2str(n,'%02d'),'.mat']),'DCM');
     end 
 end
