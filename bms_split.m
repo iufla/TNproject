@@ -31,6 +31,10 @@ for subject = 1:numel(subjects)
         dcmDir = dcms(dcm);
         dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
     end
+%     dcmmat = {
+%         fullfile(subjectPath, 'DCM', 'DCM_estimated_01.mat'),
+%         fullfile(subjectPath, 'DCM', 'DCM_estimated_14.mat'),
+%         };
     
     if ismember(subj.name, specs.ASD_names)
         asdCount = asdCount + 1;

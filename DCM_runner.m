@@ -3,7 +3,7 @@ pathBase = pathBase.path;
 pathBase = fullfile(pathBase, 'data');
 
 testMode = 0; % runs the DCM estimation only on one subject
-fullMode = 0; % runs the DCM estimation on all the tasks if 1, only on one if 0
+fullMode = 1; % runs the DCM estimation on all the tasks if 1, only on one if 0
 
 if testMode == 1 % run it just for one subjects and one task
     subjectPath = fullfile(pathBase, 'sub-03');
@@ -19,22 +19,16 @@ else % run it for all subjects
             runName = [subjectDir(subjectIndex).name, '_task-dis_run-01_bold'];
             runDCMOnSubject(subjectPath, runName);
         else % run it for all tasks
-            names = getAllTaskNamesForSubject(subjectPath);
+            glmPath = fullfile(subjectPath, 'GLM');
+            dirs = dir(fullfile(glmPath, 'sub*'));
+            names = string();
+            for i = 1:numel(dirs)
+                names(i) = dirs(i).name;
+            end
             for nameIndex = 1:numel(names)
                 runName = names(nameIndex);
                 runDCMOnSubject(subjectPath, runName);
             end
         end
-    end
-end
-
-
-
-function names = getAllTaskNamesForSubject(subjectPath)
-    glmPath = fullfile(subjectPath, 'GLM');
-    dirs = dir(fullfile(glmPath, 'sub*'));
-    names = string();
-    for i = 1:numel(dirs)
-        names(i) = dirs(i).name;
     end
 end
