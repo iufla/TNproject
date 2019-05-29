@@ -29,7 +29,7 @@ dirs = dir(fullfile(pathBase,'sub*'));
 for f=1:numel(dirs)
     % if the process got interrupted, we can begin with the given specs
     % number
-    beginning = 100; %0, if not needed
+    beginning = 0; %0, if not needed
     if str2num(strrep(dirs(f).name, 'sub-','')) < beginning
         sprintf("skipped %s", dirs(f).name)
     else
