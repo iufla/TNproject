@@ -58,6 +58,7 @@ matlabbatch{2}.spm.dcm.bms.inference.family_level.family_file = {''};
 matlabbatch{2}.spm.dcm.bms.inference.bma.bma_no = 0;
 matlabbatch{2}.spm.dcm.bms.inference.verify_id = 1;
 
-
+batchNT = {matlabbatch{1}};
+batchASD = {matlabbatch{2}};
+spm_jobman('run', batchASD);
 %spm_jobman('run', matlabbatch);
-spm_jobman('interactive', matlabbatch);
