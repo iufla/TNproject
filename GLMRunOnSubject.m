@@ -7,7 +7,7 @@
 % filePath: points to the directory with the subject data .../sub-03
 % filename: name of the raw file
 
-function spm_glm_batch_job(pathBase, subjectPath, fileName)
+function GLMRunOnSubject(pathBase, subjectPath, fileName)
     try
         fileNameBase = strrep(fileName, '.nii', '');
         glmPath = fullfile(subjectPath, 'GLM');

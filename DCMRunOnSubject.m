@@ -1,10 +1,10 @@
-function runDCMOnSubject(subjectPath, runName)
+function DCMRunOnSubject(subjectPath, runName)
 
-    createDCMstruct(subjectPath,runName)
+    DCMCreateModels(subjectPath,runName)
 
     dcmPath = fullfile(subjectPath, 'DCM');
     
-    designDCMsDirs = dir(fullfile(dcmPath, 'DCM_design*.mat'));
+    designDCMsDirs = dir(fullfile(dcmPath, runName, 'DCM_design*.mat'));
     designDCMs = struct('DCM',[]);
 
     for i = 1:numel(designDCMsDirs)
@@ -16,7 +16,7 @@ function runDCMOnSubject(subjectPath, runName)
     for i = 1:numel(designDCMs)
         estimatedDCMs(i).DCM = spm_dcm_estimate(designDCMs(i).DCM);
         DCM = estimatedDCMs(i).DCM;
-        save(fullfile(dcmPath,['DCM_estimated_',num2str(i,'%02d'),'.mat']),'DCM');
+        save(fullfile(dcmPath, runName,['DCM_estimated_',num2str(i,'%02d'),'.mat']),'DCM');
     end
     
     

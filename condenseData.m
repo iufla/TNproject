@@ -3,7 +3,7 @@ pathBase = pathBase.path;
 
 move = 0;  % set to 1 if you want to move files instead of copying them
 
-condensedDataFolderName = 'condensed_data';
+condensedDataFolderName = 'condensed_data_backup';
 mkdir(pathBase, condensedDataFolderName);
 condensedDataPath = fullfile(pathBase, condensedDataFolderName);
 

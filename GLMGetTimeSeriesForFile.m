@@ -1,4 +1,4 @@
-function getTimeSeries(pathBase,path,regions)
+function GLMGetTimeSeriesForFile(pathBase,path,regions)
     for n=1:numel(regions)
         clear matlabbatch
         matlabbatch{1}.spm.util.voi.spmmat = {fullfile(path,'SPM.mat')};

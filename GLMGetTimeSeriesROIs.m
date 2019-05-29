@@ -21,18 +21,18 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 
 pathBase = fullfile(pathBase, 'data');
-dirs = dir(fullfile(pathBase,'sub*'));
+subjects = dir(fullfile(pathBase,'sub*'));
 
-for f=1:numel(dirs)
-    path = fullfile(pathBase,dirs(f).name);
+for f=1:numel(subjects)
+    subjectPath = fullfile(pathBase,subjects(f).name);
     
-    filenames = dir(fullfile(path, 'func', '*dis*.nii'));
+    filenames = dir(fullfile(subjectPath, 'func', '*dis*.nii'));
     
-    glmPath = fullfile(path, 'GLM');
+    glmPath = fullfile(subjectPath, 'GLM');
        
     for i=1:numel(filenames)
         fileNameBase = strrep(filenames(i).name, '.nii', '');
         glmPathTask = fullfile(glmPath, fileNameBase);
-        getTimeSeries(pathBase,glmPathTask,regions);
+        GLMGetTimeSeriesForFile(pathBase,glmPathTask,regions);
     end
 end

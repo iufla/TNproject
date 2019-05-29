@@ -12,6 +12,8 @@ dAnat = dir(fullfile(pathBase,'sub*/anat/*.nii.gz'));
 
 d = [dFunc',dAnat'];
 
+% unpack all data
+
 for f=1:numel(d)
     file = fullfile(d(f).folder,d(f).name);
     gunzip(file);
@@ -71,12 +73,12 @@ dirs = dir(fullfile(pathBase,'sub*','func','*task-dis_run*.tsv'));
 for f=1:numel(dirs)
     filename = dirs(f).name;
     folder = dirs(f).folder;
-    struct = readTaskSpecs(fullfile(folder, filename));
+    struct = preprocessReadTaskSpecs(fullfile(folder, filename));
     
     preprocessedFolder = strrep(folder, '/func', '/preprocessed/func');
     structName = strrep(filename,'tsv','mat');
     save(fullfile(preprocessedFolder,structName),'struct');
 end
 
-sprintf('==== generate structs from tsv ====')
+sprintf('==== generated structs from tsv ====')
 sprintf('======== Finished! ========')
