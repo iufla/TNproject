@@ -4,10 +4,10 @@
 % in line 27, specify whether subjects 7,17,27,28,44 should be
 % automatically removed...
 
-%function specs_f = readParticipantSpecs()
+function specs_f = readParticipantSpecs()
     pathBase = what('TNproject');
     pathBase = pathBase.path;
-    filename = fullfile(pathBase, 'data\participants.tsv');
+    filename = fullfile(pathBase, 'data', 'participants.tsv');
     
     t = textread(filename,'%s','delimiter','\n');
     header = strsplit(t{1});
@@ -24,7 +24,7 @@
     end
 
     % determine whether to remove certain subjects
-    remove = 1;
+    remove = 0;
     if remove == 1
         % exclude subjects 07 & 17 (preprocessing failed)
         % exclude subjects 27,28,44 (time series extraction failed)
@@ -43,15 +43,19 @@
     % (group names ending with 'D' or 'T')
     ASDIndices = [];
     NTIndices = [];
+    ASDNames = strings();
+    NTNames = strings();
     for n=1:numel(specs)
        sub_id(n) = str2double(specs(n).participant_id(end-1:end));        
        if strcmp(specs(n).group(end),'D')
            %ASDIndices = [specs(n).participant_id,n];
            ASDIndices(n) = 1;
            NTIndices(n) = 0;
+           ASDNames = [ASDNames specs(n).participant_id];
        else
            ASDIndices(n) = 0;
            NTIndices(n) = 1;
+           NTNames = [NTNames specs(n).participant_id];
        end
 
     end
@@ -59,5 +63,5 @@
     ASD_subjects = sub_id(logical(ASDIndices));
     NT_subjects = sub_id(logical(NTIndices));
     
-    specs_f = struct('ASDIndices', ASDIndices, 'NTIndices', NTIndices, 'sub_id', sub_id, 'ASD_subjects', ASD_subjects, 'NT_subjects', NT_subjects);
-%end
+    specs_f = struct('ASDIndices', ASDIndices, 'NTIndices', NTIndices, 'sub_id', sub_id, 'ASD_subjects', ASD_subjects, 'NT_subjects', NT_subjects, 'ASD_names', ASDNames, 'NT_names', NTNames);
+end
