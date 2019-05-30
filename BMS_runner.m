@@ -1,3 +1,24 @@
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file performs Bayesian Model Selection and Bayesian Model Averaging
+% for all DCMs created for 1 run of all the subjects. By calling the 
+% function 'helperReadParticipantSpecs.m' the subjects are separated into 2
+% groups (NT and ASD).
+% The built-in SPM12 function 'spm_dcm_bma_results.m' is used to plot the
+% results from Bayesian Model Averaging.
+%
+% This file calls: 'helperReadParticipantSpecs.m'
+%
+% This file was created and adapted from the SPM12 batch editor.
+%==========================================================================
+
+
 pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
