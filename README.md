@@ -7,7 +7,7 @@ We used the following dataset for our analysis:
 https://openneuro.org/datasets/ds000212/versions/1.0.0
 
 The dataset contains functional and anatomical scans from 39 subjects. For the experimental task conducted by Koster-Hale et al. (2013) each subject had to complet 6 runs. The data from all those 6 runs are stored in the 'func' subfolder.
-Note: We encountered issues with sub-07 and sub-17 so we decided to not consider them due to the limited time window of this project. \
+Note: We encountered issues with sub-07, sub-17, sub-28 and sub-44 so we decided to not consider them due to the limited time window of this project. \
 Also included is a file containing a detailed task description ('dataset_description.json') and one containing a detailed participant description ('participants.tsv'). Those files are also needed for the code to run smoothly.
 
 ## Code
@@ -29,5 +29,18 @@ For every subject, a new subfolder 'GLM' will be created with the GLM's based on
 The file 'DCM_runner.m' is used to create our customized DCMs. In order to run this program, the files 'DCMRunOnSubject.m' and 'DCMCreateModels.m' are needed. \
 Run 'DCM_runner.m' in FullMode to create and estimate all the DCM Models with their respective parameters for the 20 specified Models defined in 'DCMCreateModels.m'. This will generate a new subfolder for every subject called 'DCM', containing six subfolders with the DCM's for every task.
 
-## BMS/BMA
-to be continued...
+## BMS & BMA
+Delete the subfolders 'sub-28' and 'sub-44' to avoid complications with the BMS/BMA! \
+To perform Bayesian Model selection, run 'BMS_runner.m'. This program compares all 20 created DCMs for one run of all subjects. Subjects are divided into NT and ASD groups according to the information specified in 'participants.tsv', which is stored in the data folder and called by 'helperReadParticipantSpecs.m'. The resulting files and figures are saved in an automatically created subfolder 'BMS' for every subject seperately. \
+The files 'BMSWinningComparison.m' and 'BMSPlotResults.m' are used for further comparison and creation of figures.
+
+## Remarks
+The creation of the folder 'TNproject' (as described in the section Code) where the code & 'data' folder (as described in the section Preprocessing are stored is ESSENTIAL to be able to successfully run our code!!!
+
+As mentioned already in the section Data, we have encountered issues with sub-07, sub-17, sub-28 and sub-44. To avoid complications with running our code, they should be deleted at the mentioned stages (Preprocessing, resp. BMS & BMA). Alternatively, they could already be deleted right after downloading the data set.
+
+The files 'helperCondenseData.m' and 'helperMergeDCMData.m' were created throughout the process of our project. They were mostly used to simplify extracting, merging, moving and sharing of (parts of) this large dataset.
+
+The file 'DCMstructContent.txt' contains our personal version of a documentation for the DCM structs used in SPM12. This emerged throughout the work for our project.
+
+Last but not least, we hope you enjoy our work! :-)

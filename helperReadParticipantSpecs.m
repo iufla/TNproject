@@ -1,8 +1,20 @@
-% read in participant description and format it into a struct with fieldnames =
-% column names of original file
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file reads in participant information and formats it into a struct 
+% with fieldnames = column names of original file. 
 
-% in line 27, specify whether subjects 7,17,27,28,44 should be
-% automatically removed...
+% The log file of the GLM & time-series extraction process report
+% complications with a number of subjects. In line 27, one can specify 
+% whether subjects 7,17,27,28,44 should be excluded from the further 
+% steps of the analysis.
+%==========================================================================
+
 
 function specs_f = helperReadParticipantSpecs()
     pathBase = what('TNproject');
