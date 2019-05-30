@@ -2,17 +2,11 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
 
-run = 1;
-runString = ['run-',num2str(run,'%02d')];
-
 specs = helperReadParticipantSpecs();
 
 clear matlabbatch;
 
 outputPath = fullfile(dataPath, 'BMSandBMA');
-mkdir(outputPath);
-
-outputPath = fullfile(outputPath, runString);
 mkdir(outputPath);
 
 outputPathNT = fullfile(outputPath, 'NT');
@@ -51,31 +45,40 @@ ntCount = 0;
 for subject = 1:numel(subjects)
     subj = subjects(subject);
     subjectPath = fullfile(subj.folder, subj.name);
-    dcms = dir(fullfile(subjectPath, 'DCM', ['*',runString,'*'], 'DCM_estimated*'));
-    dcmmat = cell(numel(dcms), 1);
-    for dcm = 1:numel(dcms)
-        dcmDir = dcms(dcm);
-        dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
+    dcmTaskFolders = dir(fullfile(subjectPath, 'DCM', 'sub*'));
+    for task = 1:numel(dcmTaskFolders)
+        taskFolder = fullfile(dcmTaskFolders(task).folder, dcmTaskFolders(task).name);
+        dcms = dir(fullfile(taskFolder, 'DCM_estimated*'));
+        dcmmat = cell(numel(dcms), 1);
+        for dcm = 1:numel(dcms)
+            dcmDir = dcms(dcm);
+            dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
+        end
+        
+        if ismember(subj.name, specs.ASD_names)
+            if task == 1
+                asdCount = asdCount + 1;
+            end
+            matlabbatch{6}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{7}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{8}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{9}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{10}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+        elseif ismember(subj.name, specs.NT_names)
+            if task == 1
+                ntCount = ntCount + 1;
+            end
+            matlabbatch{1}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{2}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{3}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{4}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{5}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+        else
+            sprintf("Error!")
+        end    
     end
-    
-    if ismember(subj.name, specs.ASD_names)
-        asdCount = asdCount + 1;
-        matlabbatch{6}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{7}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{8}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{9}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{10}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-    elseif ismember(subj.name, specs.NT_names)
-        ntCount = ntCount + 1;
-        matlabbatch{1}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{2}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{3}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{4}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{5}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-    else
-        sprintf("Error!")
-    end    
 end
+
 
 matlabbatch{1}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{1}.spm.dcm.bms.inference.load_f = {''};
@@ -100,7 +103,6 @@ matlabbatch{3}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfm
 matlabbatch{3}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
 matlabbatch{3}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
 matlabbatch{3}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
-% matlabbatch{3}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{3}.spm.dcm.bms.inference.bma.bma_yes.bma_part = 1;  % take index of best family
 matlabbatch{3}.spm.dcm.bms.inference.verify_id = 0;
 
@@ -113,7 +115,6 @@ matlabbatch{4}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfm
 matlabbatch{4}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
 matlabbatch{4}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
 matlabbatch{4}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
-% matlabbatch{4}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{4}.spm.dcm.bms.inference.bma.bma_yes.bma_part = 1;  % take index of best family
 matlabbatch{4}.spm.dcm.bms.inference.verify_id = 0;
 
@@ -124,7 +125,6 @@ matlabbatch{5}.spm.dcm.bms.inference.family_level.family(1).family_name = 'drivi
 matlabbatch{5}.spm.dcm.bms.inference.family_level.family(1).family_models = [5 8 11 12 13 14 15 16 18 20];
 matlabbatch{5}.spm.dcm.bms.inference.family_level.family(2).family_name = 'driving\_not\_towardsRTPJ';
 matlabbatch{5}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 2 3 4 6 7 9 10 17 19];
-% matlabbatch{5}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{5}.spm.dcm.bms.inference.bma.bma_yes.bma_part = 1;  % take index of best family
 matlabbatch{5}.spm.dcm.bms.inference.verify_id = 0;
 
@@ -151,7 +151,6 @@ matlabbatch{8}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfm
 matlabbatch{8}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
 matlabbatch{8}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
 matlabbatch{8}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
-% matlabbatch{8}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{8}.spm.dcm.bms.inference.bma.bma_yes.bma_part = 2;  % take index of best family
 matlabbatch{8}.spm.dcm.bms.inference.verify_id = 0;
 
@@ -164,7 +163,6 @@ matlabbatch{9}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfm
 matlabbatch{9}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
 matlabbatch{9}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
 matlabbatch{9}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
-% matlabbatch{9}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{9}.spm.dcm.bms.inference.bma.bma_yes.bma_part = 2;  % take index of best family
 matlabbatch{9}.spm.dcm.bms.inference.verify_id = 0;
 
@@ -175,7 +173,6 @@ matlabbatch{10}.spm.dcm.bms.inference.family_level.family(1).family_name = 'driv
 matlabbatch{10}.spm.dcm.bms.inference.family_level.family(1).family_models = [5 8 11 12 13 14 15 16 18 20];
 matlabbatch{10}.spm.dcm.bms.inference.family_level.family(2).family_name = 'driving\_not\_towardsRTPJ';
 matlabbatch{10}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 2 3 4 6 7 9 10 17 19];
-% matlabbatch{10}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{10}.spm.dcm.bms.inference.bma.bma_yes.bma_part = 2;  % take index of best family
 matlabbatch{10}.spm.dcm.bms.inference.verify_id = 0;
 

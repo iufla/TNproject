@@ -52,7 +52,6 @@ for subject = 1:numel(subjects)
     subj = subjects(subject);
     subjectPath = fullfile(subj.folder, subj.name);
     dcms = dir(fullfile(subjectPath, 'DCM', '*_task-dis_run-01_bold', 'DCM_estimated*'));
-%     dcms = dir(fullfile(subjectPath, 'DCM', 'DCM_estimated*'));
     dcmmat = cell(2, 1);
     
     dcmDirASD = dcms(winningModelASD);
