@@ -1,3 +1,20 @@
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file creates 20 different DCMs by calling 'DCMCreateModels.m'.
+% The created DCM structs are saved and parameters are being estimated 
+% using the function 'spm_dcm_estimate.m' from SPM12.
+%
+% This file calls: 'DCMRunOnSubject.m' (which calls 'DCMCreateModels.m' and
+% 'spm_dcm_estimate.m')
+%==========================================================================
+
+
 function DCMRunOnSubject(subjectPath, runName)
 
     DCMCreateModels(subjectPath,runName)

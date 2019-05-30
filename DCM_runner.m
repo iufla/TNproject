@@ -8,10 +8,13 @@
 %--------------------------------------------------------------------------
 % This file creates 20 different DCMs (specified in 'DCMCreateModels.m') by
 % calling the file 'DCMRunOnSubject.m'.
-% In line 21, one can specify the testMode, in which only 1 run of 1
+% In line 24, one can specify the testMode, in which only 1 run of 1
 % subject will be estimated.
-% When running in fullMode (line 22), DCMs are estimated for every run of
+% When running in fullMode (line 25), DCMs are estimated for every run of
 % every subject.
+%
+% This file calls: 'DCMRunOnSubject.m' (which calls 'DCMCreateModels.m' and
+% 'spm_dcm_estimate.m')
 %==========================================================================
 
 pathBase = what('TNproject');

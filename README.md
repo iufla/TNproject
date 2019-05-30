@@ -26,6 +26,7 @@ To build the GLM's, run 'GLM_runner.m'. Files needed to run this programs are 'G
 For every subject, a new subfolder 'GLM' will be created with the GLM's based on the preprocessed data, calculated for every 'dis' task (for more information, refer to the 'dataset_description.json'), so there will be six subfolders in the newly created GLM folder. In the end, the timeseries for our regions of interest (defined in 'GetTimeSeriesROIs.m') will be extracted and also saved into the created subfolders for each run.
 
 ## DCM
+The file 'DCM_runner.m' is used to create our customized DCMs. In order to run this program, the files 'DCMRunOnSubject.m' and 'DCMCreateModels.m' are needed. \
 Run 'DCM_runner.m' in FullMode to create and estimate all the DCM Models with their respective parameters for the 20 specified Models defined in 'DCMCreateModels.m'. This will generate a new subfolder for every subject called 'DCM', containing six subfolders with the DCM's for every task.
 
 ## BMS/BMA

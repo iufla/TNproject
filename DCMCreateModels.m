@@ -1,3 +1,17 @@
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file creates 20 different customized DCM structs by calling 
+% 'DCMCreateModels.m'. The created DCM structs are saved.
+%
+% Thise file is built on and customized for our needs from the SPM batch 
+% script specified below:
+
 % This batch script analyses the Attention to Visual Motion fMRI dataset
 % available from the SPM website using DCM:
 %   http://www.fil.ion.ucl.ac.uk/spm/data/attention/
@@ -8,6 +22,7 @@
 
 % Guillaume Flandin & Peter Zeidman
 % $Id: dcm_spm12_batch.m 12 2014-09-29 19:58:09Z guillaume $
+%==========================================================================
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
