@@ -279,6 +279,46 @@ function DCMCreateModels(subjectPath,runName)
     connectivityMatrices(nDCMs).c([PRECidx,RTPJidx],harmInptIdx) = 1;
     connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
     
+    % 17. no modulatory inputs, driving input towards PC
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c(PRECidx,harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+
+    % 18. no modulatory inputs, driving input towards PC,LTPJ,RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,LTPJidx,RTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+
+    % 19. no modulatory inputs, driving input towards PC,LTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,LTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+
+    % 20. no modulatory inputs, driving input towards PC,RTPJ
+    nDCMs = nDCMs + 1;
+    connectivityMatrices(nDCMs).a = ones(DCM.n,DCM.n);
+    for n=1:nInputs
+        connectivityMatrices(nDCMs).b(:,:,n) = zeros(DCM.n,DCM.n);
+    end
+    connectivityMatrices(nDCMs).c = zeros(DCM.n,nInputs);
+    connectivityMatrices(nDCMs).c([PRECidx,RTPJidx],harmInptIdx) = 1;
+    connectivityMatrices(nDCMs).d = zeros(DCM.n,DCM.n,0);   % not needed (only for nonlinear DCM)
+    
     % Save resulting DCM structs
     %--------------------------------------------------------------------------
     for n=1:nDCMs
