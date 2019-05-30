@@ -1,6 +1,6 @@
 *.DS_Store
 
-data.zip
+*.zip
 data/
 sub*/
 *.m~
