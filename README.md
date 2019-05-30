@@ -4,13 +4,13 @@ ETH Zürich, 30. Mai 2019
 
 ## Data
 We used the following dataset for our analysis:
-https://openneuro.org/datasets/ds000212/versions/1.0.0\
+https://openneuro.org/datasets/ds000212/versions/1.0.0 \
 
 The dataset contains functional and anatomical scans from 39 subjects. For the experimental task conducted by Koster-Hale et al. (2013) each subject had to complet 6 runs. The data from all those 6 runs are stored in the 'func' subfolder.
 Note: We encountered issues with sub-07 and sub-17 so we decided to not consider them due to the limited time window of this project.
 
 ## Code
-All the necessary code can be downloaded from https://github.com/iufla/TNproject\
+All the necessary code can be downloaded from https://github.com/iufla/TNproject \
 
 When cloning the repository, the name of the folder will be set to 'TNproject' by default. This MUST NOT BE CHANGED for the code to run smoothly.\
 
