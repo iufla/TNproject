@@ -53,30 +53,9 @@ for subject = 1:numel(subjects)
     subjectPath = fullfile(subj.folder, subj.name);
     dcms = dir(fullfile(subjectPath, 'DCM', ['*',runString,'*'], 'DCM_estimated*'));
     dcmmat = cell(numel(dcms), 1);
-    DCMY_ref = struct();
     for dcm = 1:numel(dcms)
         dcmDir = dcms(dcm);
         dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
-%         DCM = load(fullfile(dcmDir.folder, dcmDir.name));
-%         DCM = DCM.DCM;
-%         if dcm > 15
-% %         if isempty(strfind(DCM.xY(1).spec.fname,'steeve'))
-%             try
-%                 DCM.Y = DCMY_ref;
-% %                 for i=1:3
-% %                     DCM.xY(i).spec.fname = strrep(DCM.xY(i).spec.fname,'/media/nina/Seagate Expansion Drive/TNU/data/','/Users/steeve/Documents/ETH/FS2019/Translational_Neuromodelling/Project/TNproject/data/');
-% %                     disp(DCM.xY(i).spec.fname)
-% %                     save(fullfile(dcmDir.folder, dcmDir.name),'DCM')
-% %                 end
-%                 save(fullfile(dcmDir.folder, dcmDir.name),'DCM')
-%             catch
-%                 warning('failed')
-%             end
-%         elseif dcm == 1
-%             DCMY_ref = DCM.Y;
-%         end
-        
-%         save(fullfile(dcmDir.folder, dcmDir.name),'DCM')
     end
     
     if ismember(subj.name, specs.ASD_names)

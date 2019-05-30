@@ -5,7 +5,7 @@ pathBase = fullfile(pathBase, 'data');
 dcmsNumber = numel(dir(fullfile(pathBase,'sub-03','DCM', 'DCM_estimated*')));
 subjectsDir = dir(fullfile(pathBase,'sub*'));
 
-specs = readParticipantSpecs();
+specs = helperReadParticipantSpecs();
 
 
 DCM_asd = cell(0,0);

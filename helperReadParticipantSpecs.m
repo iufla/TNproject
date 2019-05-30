@@ -4,7 +4,7 @@
 % in line 27, specify whether subjects 7,17,27,28,44 should be
 % automatically removed...
 
-function specs_f = preprocessReadParticipantSpecs()
+function specs_f = helperReadParticipantSpecs()
     pathBase = what('TNproject');
     pathBase = pathBase.path;
     filename = fullfile(pathBase, 'data', 'participants.tsv');

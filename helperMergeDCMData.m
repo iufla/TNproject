@@ -3,7 +3,7 @@
 % tnProjectPath = tnProjectPath.path;
 % mergeDCMData(fullfile(tnProjectPath, 'data_dcm_nomod'), fullfile(tnProjectPath, 'data'));
 
-function mergeDCMData(subjectsPathFrom, subjectsPathTo)
+function helperMergeDCMData(subjectsPathFrom, subjectsPathTo)
     toSubjects = dir(fullfile(subjectsPathTo, 'sub*'));
     for i = 1:numel(toSubjects)
         subject = toSubjects(i).name;
