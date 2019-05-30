@@ -1,5 +1,17 @@
-% read in a task description and format it into a struct with fieldnames =
-% column names of original file
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This function reads in a task description and formats it into a struct 
+% with fieldnames = column names of original file.
+% The task specifications of the experiment are stored in the file
+% 'dataset_description.json', which has to be stored in the 'data' folder.
+%==========================================================================
+
 
 function specs_f = helperReadTaskSpecs(filename)
     sprintf(filename)
