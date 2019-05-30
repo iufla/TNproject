@@ -75,75 +75,115 @@ matlabbatch{1}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{1}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{1}.spm.dcm.bms.inference.method = 'FFX';
 matlabbatch{1}.spm.dcm.bms.inference.family_level.family_file = {''};
-matlabbatch{1}.spm.dcm.bms.inference.bma.bma_no = 0;
+matlabbatch{1}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{1}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{2}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{2}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{2}.spm.dcm.bms.inference.method = 'RFX';
 matlabbatch{2}.spm.dcm.bms.inference.family_level.family_file = {''};
-matlabbatch{2}.spm.dcm.bms.inference.bma.bma_no = 0;
+matlabbatch{2}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{2}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{3}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{3}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{3}.spm.dcm.bms.inference.method = 'FFX';
+matlabbatch{3}.spm.dcm.bms.inference.family_level.family(1).family_name = 'modulatory\_towards\_RTPJ';
+matlabbatch{3}.spm.dcm.bms.inference.family_level.family(1).family_models = [2 3 4 5 6 9 10 11 12 13 15 16];
+matlabbatch{3}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfmodulatory\_RTPJ';
+matlabbatch{3}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
+% matlabbatch{3}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
+% matlabbatch{3}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
 matlabbatch{3}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{3}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{4}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{4}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{4}.spm.dcm.bms.inference.method = 'RFX';
+matlabbatch{4}.spm.dcm.bms.inference.family_level.family(1).family_name = 'modulatory\_towards\_RTPJ';
+matlabbatch{4}.spm.dcm.bms.inference.family_level.family(1).family_models = [2 3 4 5 6 9 10 11 12 13 15 16];
+matlabbatch{4}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfmodulatory\_RTPJ';
+matlabbatch{4}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
+% matlabbatch{4}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
+% matlabbatch{4}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
 matlabbatch{4}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{4}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{5}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{5}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{5}.spm.dcm.bms.inference.method = 'RFX';
-matlabbatch{5}.spm.dcm.bms.inference.family_level.family(1).family_name = 'modulatory_towards_RTPJ';
-matlabbatch{5}.spm.dcm.bms.inference.family_level.family(1).family_models = [2 3 4 5 6 9 10 11 12 13 15 16];
-matlabbatch{5}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfmodulatory_RTPJ';
-matlabbatch{5}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
-% matlabbatch{1}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no_modulation';
-% matlabbatch{1}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
+matlabbatch{5}.spm.dcm.bms.inference.family_level.family(1).family_name = 'driving\_also\_towards\_RTPJ';
+matlabbatch{5}.spm.dcm.bms.inference.family_level.family(1).family_models = [5 8 11 12 13 14 15 16];%[5 8 11 12 13 14 15 16 18 20];
+matlabbatch{5}.spm.dcm.bms.inference.family_level.family(2).family_name = 'driving\_not\_towardsRTPJ';
+matlabbatch{5}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 2 3 4 6 7 9 10];%[1 2 3 4 7 9 10 17 19];
+matlabbatch{5}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{5}.spm.dcm.bms.inference.verify_id = 1;
-
 
 matlabbatch{6}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{6}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{6}.spm.dcm.bms.inference.method = 'FFX';
 matlabbatch{6}.spm.dcm.bms.inference.family_level.family_file = {''};
-matlabbatch{6}.spm.dcm.bms.inference.bma.bma_no = 0;
+matlabbatch{6}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{6}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{7}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{7}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{7}.spm.dcm.bms.inference.method = 'RFX';
 matlabbatch{7}.spm.dcm.bms.inference.family_level.family_file = {''};
-matlabbatch{7}.spm.dcm.bms.inference.bma.bma_no = 0;
+matlabbatch{7}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{7}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{8}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{8}.spm.dcm.bms.inference.load_f = {''};
-matlabbatch{8}.spm.dcm.bms.inference.method = 'FFX';
+matlabbatch{8}.spm.dcm.bms.inference.method = 'RFX';
+matlabbatch{8}.spm.dcm.bms.inference.family_level.family(1).family_name = 'modulatory\_towards\_RTPJ';
+matlabbatch{8}.spm.dcm.bms.inference.family_level.family(1).family_models = [2 3 4 5 6 9 10 11 12 13 15 16];
+matlabbatch{8}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfmodulatory\_RTPJ';
+matlabbatch{8}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
+% matlabbatch{8}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
+% matlabbatch{8}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
 matlabbatch{8}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{8}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{9}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{9}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{9}.spm.dcm.bms.inference.method = 'RFX';
+matlabbatch{9}.spm.dcm.bms.inference.family_level.family(1).family_name = 'modulatory\_towards\_RTPJ';
+matlabbatch{9}.spm.dcm.bms.inference.family_level.family(1).family_models = [2 3 4 5 6 9 10 11 12 13 15 16];
+matlabbatch{9}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfmodulatory\_RTPJ';
+matlabbatch{9}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
+% matlabbatch{9}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no\_modulation';
+% matlabbatch{9}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
 matlabbatch{9}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{9}.spm.dcm.bms.inference.verify_id = 1;
 
 matlabbatch{10}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{10}.spm.dcm.bms.inference.load_f = {''};
 matlabbatch{10}.spm.dcm.bms.inference.method = 'RFX';
-matlabbatch{10}.spm.dcm.bms.inference.family_level.family(1).family_name = 'modulatory_towards_RTPJ';
-matlabbatch{10}.spm.dcm.bms.inference.family_level.family(1).family_models = [2 3 4 5 6 9 10 11 12 13 15 16];
-matlabbatch{10}.spm.dcm.bms.inference.family_level.family(2).family_name = 'selfmodulatory_RTPJ';
-matlabbatch{10}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 7 8 14];
-% matlabbatch{1}.spm.dcm.bms.inference.family_level.family(3).family_name = 'no_modulation';
-% matlabbatch{1}.spm.dcm.bms.inference.family_level.family(3).family_models = [17 18 19 20];
+matlabbatch{10}.spm.dcm.bms.inference.family_level.family(1).family_name = 'driving\_also\_towards\_RTPJ';
+matlabbatch{10}.spm.dcm.bms.inference.family_level.family(1).family_models = [5 8 11 12 13 14 15 16];%[5 8 11 12 13 14 15 16 18 20];
+matlabbatch{10}.spm.dcm.bms.inference.family_level.family(2).family_name = 'driving\_not\_towardsRTPJ';
+matlabbatch{10}.spm.dcm.bms.inference.family_level.family(2).family_models = [1 2 3 4 6 7 9 10];%[1 2 3 4 6 7 9 10 17 19];
+matlabbatch{10}.spm.dcm.bms.inference.bma.bma_yes.bma_famwin = 'famwin';
 matlabbatch{10}.spm.dcm.bms.inference.verify_id = 1;
 
-spm_jobman('run', matlabbatch(4));
+for n=1:numel(matlabbatch)
+    spm_jobman('run', matlabbatch(n));
+    saveDir = matlabbatch{n}.spm.dcm.bms.inference.dir{:};
+    nPlots = 0;
+    figures = findall(0,'type','figure');
+    for m=1:numel(figures)
+        if strcmp(figures(m).Tag,'Graphics')
+            nPlots = nPlots + 1;
+            saveas(figures(m),fullfile(saveDir,['resultsPlot_',num2str(nPlots),'.fig']));
+        end
+    end
+    spm_dcm_bma_results(fullfile(saveDir,'BMS.mat'),lower(matlabbatch{n}.spm.dcm.bms.inference.method));
+    figures = findall(0,'type','figure');
+    for m=1:numel(figures)
+        if strcmp(figures(m).Tag,'Graphics')
+            nPlots = nPlots + 1;
+            saveas(figures(m),fullfile(saveDir,['resultsPlot_',num2str(nPlots),'.fig']));
+        end
+    end
+end
