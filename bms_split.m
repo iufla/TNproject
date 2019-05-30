@@ -2,7 +2,7 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
 
-specs = preprocessReadParticipantSpecs();
+specs = helperReadParticipantSpecs();
 
 clear matlabbatch;
 
