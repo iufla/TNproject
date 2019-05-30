@@ -2,7 +2,7 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
 
-specs = readParticipantSpecs();
+specs = preprocessReadParticipantSpecs();
 
 clear matlabbatch;
 
@@ -25,25 +25,30 @@ ntCount = 0;
 for subject = 1:numel(subjects)
     subj = subjects(subject);
     subjectPath = fullfile(subj.folder, subj.name);
-    dcms = dir(fullfile(subjectPath, 'DCM', 'DCM_estimated*'));
-    dcmmat = cell(numel(dcms), 1);
-    for dcm = 1:numel(dcms)
-        dcmDir = dcms(dcm);
-        dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
-    end
-%     dcmmat = {
-%         fullfile(subjectPath, 'DCM', 'DCM_estimated_01.mat'),
-%         fullfile(subjectPath, 'DCM', 'DCM_estimated_14.mat'),
-%         };
     
-    if ismember(subj.name, specs.ASD_names)
-        asdCount = asdCount + 1;
-        matlabbatch{2}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-    elseif ismember(subj.name, specs.NT_names)
-        ntCount = ntCount + 1;
-        matlabbatch{1}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-    else
-        sprintf("Error!")
+    dcmTaskFolders = dir(fullfile(subjectPath, 'DCM', 'sub*'));
+    for task = 1:numel(dcmTaskFolders)
+        taskFolder = fullfile(dcmTaskFolders(task).folder, dcmTaskFolders(task).name);
+        dcms = dir(fullfile(taskFolder, 'DCM_estimated*'));
+        dcmmat = cell(numel(dcms), 1);
+        for dcm = 1:numel(dcms)
+            dcmDir = dcms(dcm);
+            dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
+        end
+        
+        if ismember(subj.name, specs.ASD_names)
+            if task == 1
+                asdCount = asdCount + 1;
+            end
+            matlabbatch{2}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+        elseif ismember(subj.name, specs.NT_names)
+            if task == 1
+                ntCount = ntCount + 1;
+            end
+            matlabbatch{1}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+        else
+            sprintf("Error!")
+        end   
     end    
 end
 

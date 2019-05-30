@@ -45,30 +45,38 @@ ntCount = 0;
 for subject = 1:numel(subjects)
     subj = subjects(subject);
     subjectPath = fullfile(subj.folder, subj.name);
-    dcms = dir(fullfile(subjectPath, 'DCM', 'DCM_estimated*'));
-    dcmmat = cell(numel(dcms), 1);
-    for dcm = 1:numel(dcms)
-        dcmDir = dcms(dcm);
-        dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
+    dcmTaskFolders = dir(fullfile(subjectPath, 'DCM', 'sub*'));
+    for task = 1:numel(dcmTaskFolders)
+        taskFolder = fullfile(dcmTaskFolders(task).folder, dcmTaskFolders(task).name);
+        dcms = dir(fullfile(taskFolder, 'DCM_estimated*'));
+        dcmmat = cell(numel(dcms), 1);
+        for dcm = 1:numel(dcms)
+            dcmDir = dcms(dcm);
+            dcmmat{dcm} = fullfile(dcmDir.folder, dcmDir.name);
+        end
+        
+        if ismember(subj.name, specs.ASD_names)
+            if task == 1
+                asdCount = asdCount + 1;
+            end
+            matlabbatch{6}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{7}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{8}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{9}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+            matlabbatch{10}.spm.dcm.bms.inference.sess_dcm{asdCount}(task).dcmmat = dcmmat;
+        elseif ismember(subj.name, specs.NT_names)
+            if task == 1
+                ntCount = ntCount + 1;
+            end
+            matlabbatch{1}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{2}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{3}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{4}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+            matlabbatch{5}.spm.dcm.bms.inference.sess_dcm{ntCount}(task).dcmmat = dcmmat;
+        else
+            sprintf("Error!")
+        end    
     end
-    
-    if ismember(subj.name, specs.ASD_names)
-        asdCount = asdCount + 1;
-        matlabbatch{6}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{7}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{8}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{9}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-        matlabbatch{10}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-    elseif ismember(subj.name, specs.NT_names)
-        ntCount = ntCount + 1;
-        matlabbatch{1}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{2}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{3}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{4}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-        matlabbatch{5}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-    else
-        sprintf("Error!")
-    end    
 end
 
 matlabbatch{1}.spm.dcm.bms.inference.model_sp = {''};
