@@ -33,6 +33,6 @@ for f=1:numel(subjects)
     for i=1:numel(filenames)
         fileNameBase = strrep(filenames(i).name, '.nii', '');
         glmPathTask = fullfile(glmPath, fileNameBase);
-        GLMGetTimeSeriesForFile(pathBase,glmPathTask,regions);
+        GetTimeSeriesForFile(pathBase,glmPathTask,regions);
     end
 end

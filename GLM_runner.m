@@ -15,4 +15,4 @@ for f=1:numel(subjects)
     end
 end
 
-GLMGetTimeSeriesROIs();
+GetTimeSeriesROIs();
