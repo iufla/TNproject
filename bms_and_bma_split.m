@@ -5,7 +5,7 @@ dataPath = fullfile(pathBase, 'data');
 run = 2;
 runString = ['run-',num2str(run,'%02d')];
 
-specs = preprocessReadParticipantSpecs();
+specs = helperReadParticipantSpecs();
 
 clear matlabbatch;
 
