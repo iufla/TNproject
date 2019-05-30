@@ -2,7 +2,7 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
 
-winningModelASD = 15;
+winningModelASD = 1;
 winningModelNT = 14;
 
 specs = preprocessReadParticipantSpecs();
@@ -51,7 +51,8 @@ ntCount = 0;
 for subject = 1:numel(subjects)
     subj = subjects(subject);
     subjectPath = fullfile(subj.folder, subj.name);
-    dcms = dir(fullfile(subjectPath, 'DCM', 'DCM_estimated*'));
+    dcms = dir(fullfile(subjectPath, 'DCM', '*_task-dis_run-01_bold', 'DCM_estimated*'));
+%     dcms = dir(fullfile(subjectPath, 'DCM', 'DCM_estimated*'));
     dcmmat = cell(2, 1);
     
     dcmDirASD = dcms(winningModelASD);
@@ -138,5 +139,3 @@ for n=1:numel(matlabbatch)
         end
     end
 end
-
-% histogram(BMS.DCM.rfx.model.g_post(:,1),'BinMethod','auto','Normalization','probability','BinLimits',[0,1],'BinWidth',0.1)
