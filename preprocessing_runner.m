@@ -1,7 +1,17 @@
-% preprocesses all the data in the sub-xx folders in the given directory
-% first it extracts all the .gz-files, than it continues with preprocessing the Nii-Files,
-% after that it adjusts the
-% textfiles and then it extracts the task specifications
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file preprocesses all the data in the sub-xx folders in the given 
+% directory first it extracts all the .gz-files, then it continues with 
+% preprocessing the Nii-Files. After that it adjusts the textfiles and then
+% it extracts the task specifications.
+% This file calls: 'preprocessNiiData.m', 'helperReadTaskSpecs.m'
+%==========================================================================
 
 pathBase = what('TNproject');
 pathBase = pathBase.path;

@@ -1,11 +1,20 @@
-% Script to preprocess fMRI data given in .nii files
-% Input: String data_path specifying the location of the folders 'func' and 'anat'
-% containing the functional resp. anatomical fMRI data.
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% Customized script to preprocess fMRI data given in .nii files
+% Input: String data_path specifying the location of the folders 'func' and
+% 'anat' containing the functional resp. anatomical fMRI data.
 %
 % Mostly copied from the SPM example documented in
 % http://www.fil.ion.ucl.ac.uk/spm/doc/manual.pdf#Chap:data:auditory
 % Copyright (C) 2014 Wellcome Trust Centre for Neuroimaging, Guillaume Flandin
-%
+%==========================================================================
+
 function preprocessNiiData(data_path)
     savePath = fullfile(data_path,'preprocessed');
     savePathFunc = fullfile(savePath, 'func');
