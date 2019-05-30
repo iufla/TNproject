@@ -73,7 +73,7 @@ dirs = dir(fullfile(pathBase,'sub*','func','*task-dis_run*.tsv'));
 for f=1:numel(dirs)
     filename = dirs(f).name;
     folder = dirs(f).folder;
-    struct = preprocessReadTaskSpecs(fullfile(folder, filename));
+    struct = helperReadTaskSpecs(fullfile(folder, filename));
     
     preprocessedFolder = strrep(folder, '/func', '/preprocessed/func');
     structName = strrep(filename,'tsv','mat');

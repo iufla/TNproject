@@ -13,7 +13,7 @@ subjectsDir = dir(fullfile(pathBase,'sub*'));
 %     dcmsNumber = dcmsNumber - 1;
 % end
 
-specs = readParticipantSpecs();
+specs = helperReadParticipantSpecs();
 
 negativeFreeEnergySumsNT = zeros(dcmsNumber, 1);
 negativeFreeEnergySumsASD = zeros(dcmsNumber, 1);

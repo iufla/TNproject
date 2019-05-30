@@ -1,7 +1,7 @@
 % read in a task description and format it into a struct with fieldnames =
 % column names of original file
 
-function specs_f = preprocessReadTaskSpecs(filename)
+function specs_f = helperReadTaskSpecs(filename)
     sprintf(filename)
 
     t = textread(filename,'%s','delimiter','\n');

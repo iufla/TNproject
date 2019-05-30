@@ -5,7 +5,7 @@ dataPath = fullfile(pathBase, 'data');
 winningModelASD = 15;
 winningModelNT = 14;
 
-specs = preprocessReadParticipantSpecs();
+specs = helperReadParticipantSpecs();
 
 clear matlabbatch;
 
