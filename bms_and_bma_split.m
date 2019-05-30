@@ -2,8 +2,8 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
 
-run = 1;
-runString = ['run-',num2str(task,'%02d')];
+run = 2;
+runString = ['run-',num2str(run,'%02d')];
 
 specs = preprocessReadParticipantSpecs();
 
