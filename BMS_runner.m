@@ -2,7 +2,7 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
 
-run = 2;
+run = 1;
 runString = ['run-',num2str(run,'%02d')];
 
 specs = helperReadParticipantSpecs();
