@@ -1,11 +1,25 @@
-%-----------------------------------------------------------------------
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file creates a customized GLM with the specified regressors. There 
+% is a log file created in case of complications with creating the GLM.
+% filePath: points to the directory with the subject data .../sub-03
+% filename: name of the raw file
+%
+% This file was created and adapted from the SPM12 batch editor.
+%==========================================================================
+
+%--------------------------------------------------------------------------
 % Job saved on 21-May-2019 14:15:02 by cfg_util (rev $Rev: 7345 $)
 % spm SPM - SPM12 (7487)
 % cfg_basicio BasicIO - Unknown
-%-----------------------------------------------------------------------
+%--------------------------------------------------------------------------
 
-% filePath: points to the directory with the subject data .../sub-03
-% filename: name of the raw file
 
 function GLMRunOnSubject(pathBase, subjectPath, fileName)
     try

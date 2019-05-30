@@ -1,3 +1,18 @@
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This function extracts the time-series for the specified ROIs in
+% 'GetTimeSeriesROIs.m'. There is a log file created in case of 
+% complications with extracting the time-series.
+%
+% This file was created and adapted from the SPM12 batch editor.
+%==========================================================================
+
 function GetTimeSeriesForFile(pathBase,path,regions)
     for n=1:numel(regions)
         clear matlabbatch

@@ -1,3 +1,16 @@
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file specifies the MNI coordinates of our ROIs. The time-series are
+% being extracted by calling 'GetTimeSeriesForFile.m'
+%==========================================================================
+
+
 regions = struct();
 
 % specify ROI coordinates as [x,y,z] arrays
