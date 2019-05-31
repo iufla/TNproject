@@ -31,8 +31,8 @@ Run 'DCM_runner.m' in FullMode to create and estimate all the DCM Models with th
 
 ## BMS & BMA
 Delete the subfolders 'sub-28' and 'sub-44' to avoid complications with the BMS/BMA! \
-To perform Bayesian Model selection, run 'BMS_runner.m'. This program compares all 20 created DCMs for one run of all subjects. Subjects are divided into NT and ASD groups according to the information specified in 'participants.tsv', which is stored in the data folder and called by 'helperReadParticipantSpecs.m'. The resulting files and figures are saved in an automatically created subfolder 'BMS' for every subject seperately. \
-The files 'BMSWinningComparison.m' and 'BMSPlotResults.m' are used for further comparison of the 2 winning models and creation of figures (Dirichlet Prob. Density, etc.).
+To perform Bayesian Model selection and Bayesian Model Averaging, run 'BMS_runner.m'. This program compares all 20 created DCMs over all subjects and runs. Subjects are divided into NT and ASD groups according to the information specified in 'participants.tsv', which is stored in the data folder and read by 'helperReadParticipantSpecs.m'. The resulting files and figures of 'BMS_runner.m' are saved automatically in a subfolder 'BMSandBMA', seperately for both groups. \
+The files 'BMSWinningComparison.m' and 'BMSPlotResults.m' are used for further comparison of the 2 winning models and creation of figures (Dirichlet Prob. Density, etc.). First, run 'BMSWinningComparison.m' to perform another BMS & BMA of the 2 winning models. Then, run 'BMSPlotResults.m' to create and save the figures. The results are again saved into the above created folder 'BMSandBMA'.
 
 ## Remarks
 The creation of the folder 'TNproject' (as described in the section Code) where the code & 'data' folder (as described in the section Preprocessing) are stored is ESSENTIAL to be able to successfully run our code!!!
