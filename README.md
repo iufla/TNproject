@@ -35,7 +35,7 @@ To perform Bayesian Model selection, run 'BMS_runner.m'. This program compares a
 The files 'BMSWinningComparison.m' and 'BMSPlotResults.m' are used for further comparison of the 2 winning models and creation of figures (Dirichlet Prob. Density, etc.).
 
 ## Remarks
-The creation of the folder 'TNproject' (as described in the section Code) where the code & 'data' folder (as described in the section Preprocessing are stored is ESSENTIAL to be able to successfully run our code!!!
+The creation of the folder 'TNproject' (as described in the section Code) where the code & 'data' folder (as described in the section Preprocessing) are stored is ESSENTIAL to be able to successfully run our code!!!
 
 As mentioned already in the section Data, we have encountered issues with sub-07, sub-17, sub-28 and sub-44. To avoid complications with running our code, they should be deleted at the mentioned stages (Preprocessing, resp. BMS & BMA). Alternatively, they could already be deleted right after downloading the data set.
 
