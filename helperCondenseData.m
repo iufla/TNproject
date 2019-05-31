@@ -1,3 +1,19 @@
+% Translational Neuromodeling Project, ETH Zurich
+% 'Decoding moral judgements from neurotypical individuals compared to
+% individuals with ASD'
+%--------------------------------------------------------------------------
+% authors: Stephan Boner, Alexander Hess, Nina Stumpf
+% date: 2019-05-30
+% version: 1.0
+%--------------------------------------------------------------------------
+% This file iterates through all subjects specified in the folder in line
+% 26 and takes the GLM & DCM folders and stores the data in a new folder
+% (specified in line 22).
+% In line 20, specify whether you want to copy the files or move them into
+% the new folder.
+%==========================================================================
+
+
 pathBase = what('TNproject');
 pathBase = pathBase.path;
 
