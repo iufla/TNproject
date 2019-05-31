@@ -1,6 +1,6 @@
 # TNproject
 Alexander Hess, Nina Stumpf, Stephan Boner\
-ETH Zürich, 30. Mai 2019
+ETH Zurich, 2019-05-30
 
 ## Data
 We used the following dataset for our analysis:
@@ -32,7 +32,7 @@ Run 'DCM_runner.m' in FullMode to create and estimate all the DCM Models with th
 ## BMS & BMA
 Delete the subfolders 'sub-28' and 'sub-44' to avoid complications with the BMS/BMA! \
 To perform Bayesian Model selection, run 'BMS_runner.m'. This program compares all 20 created DCMs for one run of all subjects. Subjects are divided into NT and ASD groups according to the information specified in 'participants.tsv', which is stored in the data folder and called by 'helperReadParticipantSpecs.m'. The resulting files and figures are saved in an automatically created subfolder 'BMS' for every subject seperately. \
-The files 'BMSWinningComparison.m' and 'BMSPlotResults.m' are used for further comparison and creation of figures.
+The files 'BMSWinningComparison.m' and 'BMSPlotResults.m' are used for further comparison of the 2 winning models and creation of figures (Dirichlet Prob. Density, etc.).
 
 ## Remarks
 The creation of the folder 'TNproject' (as described in the section Code) where the code & 'data' folder (as described in the section Preprocessing are stored is ESSENTIAL to be able to successfully run our code!!!

@@ -7,7 +7,8 @@
 % version: 1.0
 %--------------------------------------------------------------------------
 % This file is used to compare the 2 winning models from the 'BMS_runner.m'
-% separately.
+% separately. The 2 winning models (for ASD & NT subjects are hard coded in
+% this file and can be specified in line 19 & 20).
 %==========================================================================
 
 
@@ -96,35 +97,6 @@ for subject = 1:numel(subjects)
     end
 end
 
-% asdCount = 0;
-% ntCount = 0;
-% for subject = 1:numel(subjects)
-%     subj = subjects(subject);
-%     subjectPath = fullfile(subj.folder, subj.name);
-%     dcms = dir(fullfile(subjectPath, 'DCM', '*_task-dis_run-01_bold', 'DCM_estimated*'));
-%     dcmmat = cell(2, 1);
-%     
-%     dcmDirASD = dcms(winningModelASD);
-%     dcmmat{1} = fullfile(dcmDirASD.folder, dcmDirASD.name);
-%     dcmDirNT = dcms(winningModelNT);
-%     dcmmat{2} = fullfile(dcmDirNT.folder, dcmDirNT.name);
-%     
-%     if ismember(subj.name, specs.ASD_names)
-%         asdCount = asdCount + 1;
-%         matlabbatch{3}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-%         matlabbatch{4}.spm.dcm.bms.inference.sess_dcm{asdCount}.dcmmat = dcmmat;
-%         matlabbatch{5}.spm.dcm.bms.inference.sess_dcm{asdCount+ntCount}.dcmmat = dcmmat;
-%         matlabbatch{6}.spm.dcm.bms.inference.sess_dcm{asdCount+ntCount}.dcmmat = dcmmat;
-%     elseif ismember(subj.name, specs.NT_names)
-%         ntCount = ntCount + 1;
-%         matlabbatch{1}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-%         matlabbatch{2}.spm.dcm.bms.inference.sess_dcm{ntCount}.dcmmat = dcmmat;
-%         matlabbatch{5}.spm.dcm.bms.inference.sess_dcm{asdCount+ntCount}.dcmmat = dcmmat;
-%         matlabbatch{6}.spm.dcm.bms.inference.sess_dcm{asdCount+ntCount}.dcmmat = dcmmat;
-%     else
-%         sprintf("Error!")
-%     end    
-% end
 
 matlabbatch{1}.spm.dcm.bms.inference.model_sp = {''};
 matlabbatch{1}.spm.dcm.bms.inference.load_f = {''};

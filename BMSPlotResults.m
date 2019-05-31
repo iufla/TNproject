@@ -15,14 +15,10 @@ pathBase = what('TNproject');
 pathBase = pathBase.path;
 dataPath = fullfile(pathBase, 'data');
 
-winningModelASD = 1;
-winningModelNT = 2;
-
 specs = helperReadParticipantSpecs();
 
 clear matlabbatch;
 
-outputPath = fullfile(dataPath, 'BMSandBMA','old','run-01_old');
 outputPath = fullfile(dataPath, 'BMSandBMA');
 mkdir(outputPath);
 
@@ -49,7 +45,6 @@ figure
 hold on
 histogram(BMS_ASD.DCM.rfx.model.g_post(:,1),'BinMethod','auto','Normalization','probability','BinLimits',[0,1],'BinWidth',0.1)
 histogram(BMS_NT.DCM.rfx.model.g_post(:,1),'BinMethod','auto','Normalization','probability','BinLimits',[0,1],'BinWidth',0.1)
-% histogram(BMS_Overall.DCM.rfx.model.g_post(:,1),'BinMethod','auto','Normalization','probability','BinLimits',[0,1],'BinWidth',0.1)
 title('Posterior Model Probabilities')
 legend('ASD','NT','Overall')
 
